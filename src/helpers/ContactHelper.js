@@ -11,7 +11,7 @@ firebase.initializeApp({
 const db = firebase.database();
 
 
-const token = ''
+const token = 'xoxp-289500787350-288346324416-375006118868-57454a7c79f6c43bbfd113cd986b7fab'
 /**
  * This function handles contact data
  * @async
