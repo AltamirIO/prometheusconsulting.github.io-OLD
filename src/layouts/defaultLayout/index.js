@@ -8,22 +8,29 @@ import { PhoneIcon } from "../../assets/icons";
 export default function DefaultLayout({ children, location }) {
   return (
     <div style={{
-      display:'flex',
+      display: 'flex',
       flexDirection: 'column',
       minHeight: '97vh',
-    }}  
+    }}
     >
-      <Navbar logo={PrometheusLogo} isFixedTop isTransparent isBlack>
-        <Navbar.Link to="/">Home</Navbar.Link>
-        <Navbar.Link to="/Services" isActive={location.pathname.includes('Services')}>Our Services</Navbar.Link>
-        <Navbar.Link to="/Contact">Get In Touch</Navbar.Link>
-        <Navbar.Item>
-          <Button.ExternalLink href="tel:+18019970739" isRounded isInverted isOutlined isBlack>
-            <PhoneIcon size={"1.3rem"} />&nbsp;&nbsp;(801) 997-0739
-          </Button.ExternalLink>
-        </Navbar.Item>
+      <Navbar isFixedTop isTransparent isBlack>
+        <Navbar.Brand>
+          <Navbar.Link to="/">
+            <img src={PrometheusLogo} alt="Prometheus Software Consulting" />
+          </Navbar.Link>
+        </Navbar.Brand>
+        <Navbar.Menu isActive isDark>
+          <Navbar.Link to="/">Home</Navbar.Link>
+          <Navbar.Link to="/Services" isActive={location.pathname.includes('Services')}>Our Services</Navbar.Link>
+          <Navbar.Link to="/Contact">Get In Touch</Navbar.Link>
+          <Navbar.Item>
+            <Button.ExternalLink href="tel:+18019970739" isRounded isInverted isOutlined isBlack>
+              <PhoneIcon size={"1.3rem"} />&nbsp;&nbsp;(801) 997-0739
+            </Button.ExternalLink>
+          </Navbar.Item>
+        </Navbar.Menu>
       </Navbar>
-      <div style={{flex:1}}>
+      <div style={{ flex: 1 }}>
         {children}
       </div>
       <Footer style={{ backgroundColor: '#363636', color: 'white', justifySelf: 'flex-end' }}>
