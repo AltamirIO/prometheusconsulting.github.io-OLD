@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter as Router, Route } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './Home'
 import Services from './Services'
 import Contact from './Contact'
@@ -8,11 +8,10 @@ class PrometheusRoutes extends React.Component {
   render() {
     return (
       <Router>
-        <div>
+        <Switch>
           <Route path="/Services" component={Services} />
-          <Route path="/Contact" component={Contact} />
-          <Route exact path="/" component={Home} />
-        </div>
+          <Route path="/" component={Home} />
+        </Switch>
       </Router>
     )
   }
