@@ -1,3 +1,14 @@
 {
-  "sections": []
+  "sections": [
+    {
+      "title": "YO",
+      "subtitle": "ususada",
+      "cta": "adasdasd",
+      "image": "/assets/images/appwireframe.jpg",
+      "bulma": [
+        "asdasd",
+        "asdasd"
+      ]
+    }
+  ]
 }
