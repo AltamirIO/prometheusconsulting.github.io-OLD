@@ -3,6 +3,7 @@ backend:
   name: "github"
   repo: "PrometheusConsulting/prometheusconsulting.github.io" # Path to your Github repositor
   branch: "master"
+  base_url: "https://prometheus-software-backend.herokuapp.com"
 publish_mode: "editorial_workflow"
 media_folder: "static/media/uploads"
 collections:
