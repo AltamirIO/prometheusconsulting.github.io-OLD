@@ -13,7 +13,7 @@ class PrometheusRoutes extends React.Component {
           <Route path="/Services" component={Services} />
           <Route path="/Contact" component={Contact} />
           <Route path="/Admin" component={Admin} />
-          <Route path="/" component={Home} />
+          <Route exact path="/" component={Home} />
         </Switch>
       </Router>
     )
