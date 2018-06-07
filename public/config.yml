@@ -2,15 +2,69 @@
 backend:
   name: "github"
   repo: "PrometheusConsulting/prometheusconsulting.github.io" # Path to your Github repositor
-  branch: "master"
+  branch: "develop"
   base_url: "https://prometheus-software-backend.herokuapp.com"
 publish_mode: "editorial_workflow"
-media_folder: "static/media/uploads"
-collections:
-  - name: "blog" # Used in routes, e.g., /admin/collections/blog
-    label: "Blog" # Used in the UI
-    folder: "/blog" # The path to the folder where the documents are stored
-    format: "json"
-    create: true # Allow users to create new documents in this collection
-    fields: # The fields for each document, usually in front matter
-      - {label: "Title", name: "title", widget: "string"}
+media_folder: "src/assets/images"
+public_folder: "/assets/images"
+display_url: https://prometheusconsulting.io
+collections: [
+  {
+    name: "pages", # Used in routes, e.g., /admin/collections/blog
+    label: "Pages", # Used in the UI
+    format: 'json',
+    files: [
+      label: 'Home Page',
+      name: 'home',
+      format: 'json',
+      file: '/src/assets/cms/home.json',
+      fields: [ # The fields for each document
+        {
+          label: "Sections",
+          name: "sections",
+          widget: "list",
+          default: [],
+          fields: [
+            {
+              label: "Type",
+              name: "type",
+              widget: 'select',
+              default: 'DEFAULT',
+              options: [
+                'DEFAULT',
+                'IMAGE',
+              ],
+            },
+            {
+              label: "Title",
+              name: "title",
+              widget: "string",
+            },
+            {
+              label: "Subtitle",
+              name: "subtitle",
+              widget: "string",
+            },
+            {
+              label: "Call to Action",
+              name: "cta",
+              widget: "string",
+            },
+            {
+              label: "Image",
+              required: false,
+              name: "image",
+              widget: "image",
+            },
+            {
+              label: 'Bulma Classes (camelCase)',
+              name: "bulma",
+              widget: "list",
+              default: [],
+            },
+          ],
+        },
+      ],
+    ],
+  }
+]

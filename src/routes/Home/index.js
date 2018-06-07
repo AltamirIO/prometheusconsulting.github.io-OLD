@@ -5,77 +5,69 @@ import {
   Section,
   Modal
 } from 'prometheusui'
-import CodeHero from "../../assets/images/code-hero.png"
+import CMS from "../../assets/cms/home.json"
 import LogoGallery from '../../assets/images/logos.png'
-import AppWireframe from '../../assets/images/appwireframe.jpg'
 import "./Home.css"
 
 class HomePage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isModalOpen: false
-    }
+  state = {
+    isModalOpen: false
   }
+
   openModal = () => {
     this.setState({ isModalOpen: true })
   }
   closeModal = () => {
     this.setState({ isModalOpen: false })
   }
-  render() {
-    const qualityCodeHero = (
-      <Hero.Image
-        image={CodeHero}
-        isSuccess
-        isBold
-        isLarge
-        isFullheight
+
+  getComponent = (type) => {
+    switch(type) {
+      case 'IMAGE':
+        return Hero.Image
+      case 'DEFAULT':
+      default:
+        return Hero
+    }
+  }
+
+  renderSection = (section, index) => {
+    const bulma = section.bulma.reduce((obj, tag) => ({...obj, [tag]: true}), {})
+    let cover = null
+    if (section.type === 'IMAGE') {
+      bulma.image = require(`../../${section.image}`)
+      cover = <Hero.Cover />
+    }
+    const Comp = this.getComponent(section.type)
+    return (
+      <Comp
+        key={index}
+        {...bulma}
       >
-        <Hero.Cover />
+        {cover}
         <Hero.Body>
-          <Hero.Title>Quality Code. On Time, Every Time.</Hero.Title>
-          <Hero.Subtitle>
-            <p>
-              Prometheus Software Consulting can take care the hassle out of large tech projects,<br/>so your business can get back to doing what it does best.
-            </p>
-          </Hero.Subtitle>
+          <Hero.Title>{section.title}</Hero.Title>
+          <Hero.Subtitle>{section.subtitle}</Hero.Subtitle>
           <Hero.CallToAction isRounded onClick={this.openModal}>
-            Ask us how
+            {section.cta}
           </Hero.CallToAction>
         </Hero.Body>
-      </Hero.Image>
+      </Comp>
     )
-    const callToActionHero = (
-      <Hero.Image image={AppWireframe} isBold isDark isFullheight>
-        <Hero.Cover />
-        <Hero.Body>
-          <Hero.Title>We can make your idea come to life.</Hero.Title>
-          <Hero.Subtitle>Let's talk about your project</Hero.Subtitle>
-          <Hero.CallToAction isRounded onClick={this.openModal}>
-            Contact Us
-          </Hero.CallToAction>
-        </Hero.Body>
-      </Hero.Image>
-    )
-    const whoWeWorkedForSection = (
-      <Section isLarge>
-        <Section.Title>Where our partners have worked</Section.Title>
-        <img src={LogoGallery} alt="logo-banner" />
-      </Section>
-    )
-    const contactModal = (
-      <Modal onClose={this.closeModal} isActive={this.state.isModalOpen}>
-        <div style={{backgroundColor: 'white', height: '500px', width: '500px' }}>Hello!</div>
-      </Modal>
-    )
+  }
+
+  render() {
     return (
       <DefaultLayout location={this.props.location}>
         <div className="Home">
-          {callToActionHero}
-          {qualityCodeHero}
-          {whoWeWorkedForSection}
-          {contactModal}
+          {CMS.sections.map(this.renderSection)}
+          <Section isLarge>
+            <Section.Title>Where our partners have worked</Section.Title>
+            <img src={LogoGallery} alt="logo-banner" />
+          </Section>
+          <Modal onClose={this.closeModal} isActive={this.state.isModalOpen}>
+            <div style={{backgroundColor: 'white', height: '500px', width: '500px' }}>Hello!</div>
+          </Modal>
         </div>
       </DefaultLayout>
     )
