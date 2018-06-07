@@ -35,7 +35,8 @@ class HomePage extends React.Component {
     const bulma = section.bulma.reduce((obj, tag) => ({...obj, [tag]: true}), {})
     let cover = null
     if (section.type === 'IMAGE') {
-      bulma.image = require(`../../${section.image}`)
+      const parts = section.image.split('/')
+      bulma.image = require(`../../assets/images/${parts[parts.length - 1]}`)
       cover = <Hero.Cover />
     }
     const Comp = this.getComponent(section.type)
