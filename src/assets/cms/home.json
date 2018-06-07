@@ -1,3 +1,14 @@
 {
-  "sections": []
+  "sections": [
+    {
+      "title": "YO",
+      "subtitle": "ususada",
+      "cta": "adasdasd",
+      "image": "/code-hero.png",
+      "bulma": [
+        "asdasd",
+        "asdasd"
+      ]
+    }
+  ]
 }
