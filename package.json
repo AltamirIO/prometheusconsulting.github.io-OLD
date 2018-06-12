@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://prometheusconsulting.github.io",
   "dependencies": {
+    "axios": "^0.18.0",
     "bloomer": "^0.6.3",
     "bulma": "^0.7.1",
     "firebase": "^5.0.4",

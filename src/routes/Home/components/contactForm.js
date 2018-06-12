@@ -1,33 +1,65 @@
 import React from 'react'
 import { Field, Label, Control, Input } from 'bloomer'
-import { TextArea } from 'bloomer/lib/elements/Form/TextArea';
+import { TextArea } from 'bloomer/lib/elements/Form/TextArea'
 
 class ContactForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      contactName: '',
+      contactEmail: '',
+      contactNumber: '',
+      contactComments: '',
+    }
+  }
+  handleInputChange = ({target}) => {
+    this.props.onInputChange(target)
+  }
+  handleSubmit = () => {
+    this.props.onSubmit({
+      subject: this.state.contactName,
+      emaiL: this.state.contactEmail,
+      text: this.state.contactNumber,
+      phone: this.state.contactNumber,
+    })
+  }
   render() {
     return (
       <React.Fragment>
         <Field>
           <Label>Your Name</Label>
           <Control>
-            <Input />
+            <Input
+              name="contactName"
+              onChange={this.handleInputChange}
+            />
           </Control>
         </Field>
         <Field>
           <Label>Email</Label>
           <Control>
-            <Input />
+            <Input
+              name="contactEmail"
+              onChange={this.handleInputChange}
+            />
           </Control>
         </Field>
         <Field>
           <Label>Phone Number</Label>
           <Control>
-            <Input />
+            <Input
+              name="contactNumber"
+              onChange={this.handleInputChange}
+            />
           </Control>
         </Field>
         <Field>
           <Label>Comments</Label>
           <Control>
-            <TextArea />
+            <TextArea
+              name="contactComments"
+              onChange={this.handleInputChange}
+            />
           </Control>
         </Field>
       </React.Fragment>

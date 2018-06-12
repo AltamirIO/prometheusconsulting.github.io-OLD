@@ -1,38 +1,69 @@
+import AppWireframe from '../../assets/images/appwireframe.jpg'
+import Axios from 'axios'
+import CodeHero from '../../assets/images/code-hero.png'
+import ContactForm from './components/contactForm'
+import LogoGallery from '../../assets/images/logos.png'
 import React from 'react'
+import { Button } from 'bloomer/lib/elements/Button'
 import { DefaultLayout } from '../../layouts'
+import { Delete } from 'bloomer/lib/elements/Delete'
 import { Hero, Section } from 'prometheusui'
 import { Modal } from 'bloomer'
-import CodeHero from '../../assets/images/code-hero.png'
-import LogoGallery from '../../assets/images/logos.png'
-import AppWireframe from '../../assets/images/appwireframe.jpg'
-import ContactForm from './components/contactForm'
-import './Home.css'
 import { ModalBackground } from 'bloomer/lib/components/Modal/ModalBackground'
-import { ModalContent } from 'bloomer/lib/components/Modal/ModalContent'
-import { ModalClose } from 'bloomer/lib/components/Modal/ModalClose'
-import { ModalCard } from 'bloomer/lib/components/Modal/Card/ModalCard';
-import { ModalCardHeader } from 'bloomer/lib/components/Modal/Card/ModalCardHeader';
-import { ModalCardTitle } from 'bloomer/lib/components/Modal/Card/ModalCardTitle';
-import { Delete } from 'bloomer/lib/elements/Delete';
-import { ModalCardBody } from 'bloomer/lib/components/Modal/Card/ModalCardBody';
-import { ModalCardFooter } from 'bloomer/lib/components/Modal/Card/ModalCardFooter';
-import { Button } from 'bloomer/lib/elements/Button';
-import { Control } from 'bloomer/lib/elements/Form/Control';
-import { Input } from 'bloomer/lib/elements/Form/Input';
-import { Label } from 'bloomer/lib/elements/Form/Label';
+import { ModalCard } from 'bloomer/lib/components/Modal/Card/ModalCard'
+import { ModalCardBody } from 'bloomer/lib/components/Modal/Card/ModalCardBody'
+import { ModalCardFooter } from 'bloomer/lib/components/Modal/Card/ModalCardFooter'
+import { ModalCardHeader } from 'bloomer/lib/components/Modal/Card/ModalCardHeader'
+import { ModalCardTitle } from 'bloomer/lib/components/Modal/Card/ModalCardTitle'
+import { Notification } from 'bloomer/lib/elements/Notification'
+import './Home.css'
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      contactComments: '',
+      contactEmail: '',
+      contactName: '',
+      contactNumber: '',
       isModalOpen: false,
+      notificationMessage: ''
     }
+    this.notificationTimeout = null
   }
   openModal = () => {
     this.setState({ isModalOpen: true })
   }
   closeModal = () => {
     this.setState({ isModalOpen: false })
+  }
+  setNotification = message => {
+    this.setState({ notificationMessage: message }, () => {
+      clearTimeout(this.notificationTimeout)
+      this.notificationTimeout = setTimeout(() => {
+        this.setState({
+          notificationMessage: null,
+        })
+      }, 3000)
+    })
+  }
+  handleModalSubmit = () => {
+    Axios.post(
+      'https://prometheus-software-backend.herokuapp.com/leadtracker',
+      {
+        email: this.state.contactEmail,
+        phone: this.state.contactNumber,
+        subject: this.state.contactName,
+        text: this.state.contactNumber
+      },
+    )
+    this.closeModal()
+    this.setNotification(
+      'Thank you for reaching out! We will get in touch with you shortly.',
+    )
+  }
+  handleInput = ({ name, value }) => {
+    this.setState({ [name]: value })
   }
   render() {
     const qualityCodeHero = (
@@ -80,14 +111,26 @@ class HomePage extends React.Component {
             <Delete onClick={this.closeModal} />
           </ModalCardHeader>
           <ModalCardBody>
-            <ContactForm />
+            <ContactForm onInputChange={this.handleInput} />
           </ModalCardBody>
           <ModalCardFooter>
-            <Button isColor="primary">Send</Button>
-            <Button isColor="outline">Cancel</Button>
+            <Button isColor="primary" onClick={this.handleModalSubmit}>
+              Send
+            </Button>
+            <Button isColor="outline" onClick={this.closeModal}>
+              Cancel
+            </Button>
           </ModalCardFooter>
         </ModalCard>
       </Modal>
+    )
+    const notificationPopup = (
+      <div className="notification-popup">
+        <Notification isColor="primary">
+          <Delete />
+          {this.state.notificationMessage}
+        </Notification>
+      </div>
     )
     return (
       <DefaultLayout location={this.props.location}>
@@ -96,6 +139,7 @@ class HomePage extends React.Component {
           {qualityCodeHero}
           {whoWeWorkedForSection}
           {contactModal}
+          {this.state.notificationMessage ? notificationPopup : false}
         </div>
       </DefaultLayout>
     )
