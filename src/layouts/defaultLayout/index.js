@@ -1,20 +1,20 @@
 import PrometheusLogo from '../../prometheus-white.png'
 import propTypes from 'prop-types'
 import React from 'react'
+import { Button } from 'bloomer/lib/elements/Button'
+import { Footer } from 'bloomer/lib/layout/Footer'
+import { Level } from 'bloomer/lib/components/Level/Level'
+import { LevelLeft } from 'bloomer/lib/components/Level/LevelLeft'
+import { LevelRight } from 'bloomer/lib/components/Level/LevelRight'
+import { Navbar } from 'bloomer/lib/components/Navbar/Navbar'
+import { NavbarBrand } from 'bloomer/lib/components/Navbar/NavbarBrand'
+import { NavbarBurger } from 'bloomer/lib/components/Navbar/NavbarBurger'
+import { NavbarEnd } from 'bloomer/lib/components/Navbar/NavbarEnd'
+import { NavbarItem } from 'bloomer/lib/components/Navbar/NavbarItem'
+import { NavbarLink } from 'bloomer/lib/components/Navbar/NavbarLink'
+import { NavbarMenu } from 'bloomer/lib/components/Navbar/NavbarMenu'
 import { PhoneIcon } from '../../assets/icons'
 import './defaultLayout.css'
-import { Navbar } from 'bloomer/lib/components/Navbar/Navbar';
-import { NavbarBrand } from 'bloomer/lib/components/Navbar/NavbarBrand';
-import { NavbarLink } from 'bloomer/lib/components/Navbar/NavbarLink';
-import { NavbarMenu } from 'bloomer/lib/components/Navbar/NavbarMenu';
-import { NavbarEnd } from 'bloomer/lib/components/Navbar/NavbarEnd';
-import { NavbarItem } from 'bloomer/lib/components/Navbar/NavbarItem';
-import { Button } from 'bloomer/lib/elements/Button';
-import { Footer } from 'bloomer/lib/layout/Footer';
-import { Level } from 'bloomer/lib/components/Level/Level';
-import { LevelLeft } from 'bloomer/lib/components/Level/LevelLeft';
-import { LevelRight } from 'bloomer/lib/components/Level/LevelRight';
-import { NavbarBurger } from 'bloomer/lib/components/Navbar/NavbarBurger';
 
 export default class DefaultLayout extends React.Component {
   constructor(props) {
