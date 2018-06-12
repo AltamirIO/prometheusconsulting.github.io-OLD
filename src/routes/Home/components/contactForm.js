@@ -17,10 +17,7 @@ class ContactForm extends React.Component {
   }
   handleSubmit = () => {
     this.props.onSubmit({
-      subject: this.state.contactName,
-      emaiL: this.state.contactEmail,
-      text: this.state.contactNumber,
-      phone: this.state.contactNumber,
+
     })
   }
   render() {
