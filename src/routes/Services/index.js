@@ -5,7 +5,6 @@ import './Services.css'
 
 class Services extends React.Component {
   render() {
-    console.log(this.props.locationw)
     return (
       <DefaultLayout location={this.props.location}>
         <Section>

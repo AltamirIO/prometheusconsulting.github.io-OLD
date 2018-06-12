@@ -1,5 +1,4 @@
 import AppWireframe from '../../assets/images/appwireframe.jpg'
-import Axios from 'axios'
 import CodeHero from '../../assets/images/code-hero.png'
 import ContactForm from './components/contactForm'
 import LogoGallery from '../../assets/images/logos.png'
@@ -48,15 +47,15 @@ class HomePage extends React.Component {
     })
   }
   handleModalSubmit = () => {
-    Axios.post(
-      'https://prometheus-software-backend.herokuapp.com/leadtracker',
-      {
+    fetch('https://prometheus-software-backend.herokuapp.com/leadtracker', {
+      method: 'POST',
+      body: JSON.stringify({
         email: this.state.contactEmail,
         phone: this.state.contactNumber,
         subject: this.state.contactName,
         text: this.state.contactNumber,
-      },
-    )
+      }),
+    })
     this.closeModal()
     this.setNotification(
       'Thank you for reaching out! We will get in touch with you shortly.',

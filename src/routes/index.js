@@ -2,7 +2,6 @@ import React from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './Home'
 import Services from './Services'
-import Contact from './Contact'
 
 class PrometheusRoutes extends React.Component {
   render() {
