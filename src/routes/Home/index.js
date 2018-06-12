@@ -1,5 +1,3 @@
-import AppWireframe from '../../assets/images/appwireframe.jpg'
-import CodeHero from '../../assets/images/code-hero.png'
 import ContactForm from './components/contactForm'
 import LogoGallery from '../../assets/images/logos.png'
 import React from 'react'
