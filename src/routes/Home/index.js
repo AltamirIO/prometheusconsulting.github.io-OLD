@@ -27,7 +27,7 @@ class HomePage extends React.Component {
       contactName: '',
       contactNumber: '',
       isModalOpen: false,
-      notificationMessage: ''
+      notificationMessage: '',
     }
     this.notificationTimeout = null
   }
@@ -54,7 +54,7 @@ class HomePage extends React.Component {
         email: this.state.contactEmail,
         phone: this.state.contactNumber,
         subject: this.state.contactName,
-        text: this.state.contactNumber
+        text: this.state.contactNumber,
       },
     )
     this.closeModal()

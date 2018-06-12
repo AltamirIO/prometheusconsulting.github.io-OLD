@@ -1,9 +1,14 @@
-import React from "react";
-import propTypes from "prop-types";
-import "./defaultLayout.css";
-import { Navbar, Footer, Button, Level } from "prometheusui";
-import PrometheusLogo from "../../prometheus-white.png";
-import { PhoneIcon } from "../../assets/icons";
+import PrometheusLogo from '../../prometheus-white.png'
+import propTypes from 'prop-types'
+import React from 'react'
+import {
+  Button,
+  Footer,
+  Level,
+  Navbar
+  } from 'prometheusui'
+import { PhoneIcon } from '../../assets/icons'
+import './defaultLayout.css'
 
 export default function DefaultLayout({ children, location }) {
   return (
@@ -32,7 +37,7 @@ export default function DefaultLayout({ children, location }) {
             {/* <Navbar.Link to="/Contact">Get In Touch</Navbar.Link> */}
             <Navbar.Item>
               <Button.ExternalLink
-                href="tel:+18019970739"
+                href="tel:18019970739"
                 isRounded
                 isInverted
                 isOutlined
@@ -65,7 +70,7 @@ export default function DefaultLayout({ children, location }) {
               </a>
             </div>
             <div>
-              <a style={{ color: "white" }} href="tel:+18019970739">
+              <a style={{ color: "white" }} href="tel:18019970739">
                 (801) 997-0739
               </a>
             </div>

@@ -1,5 +1,10 @@
 import React from 'react'
-import { Field, Label, Control, Input } from 'bloomer'
+import {
+  Control,
+  Field,
+  Input,
+  Label
+  } from 'bloomer'
 import { TextArea } from 'bloomer/lib/elements/Form/TextArea'
 
 class ContactForm extends React.Component {
