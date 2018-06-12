@@ -15,7 +15,7 @@ import { ModalCardFooter } from 'bloomer/lib/components/Modal/Card/ModalCardFoot
 import { ModalCardHeader } from 'bloomer/lib/components/Modal/Card/ModalCardHeader'
 import { ModalCardTitle } from 'bloomer/lib/components/Modal/Card/ModalCardTitle'
 import { Notification } from 'bloomer/lib/elements/Notification'
-import CMS from "../../assets/cms/home.json"
+import CMS from '../../assets/cms/home.json'
 import './Home.css'
 
 class HomePage extends React.Component {
@@ -67,8 +67,8 @@ class HomePage extends React.Component {
     this.setState({ [name]: value })
   }
 
-  getComponent = (type) => {
-    switch(type) {
+  getComponent = type => {
+    switch (type) {
       case 'IMAGE':
         return Hero.Image
       case 'DEFAULT':
@@ -78,7 +78,10 @@ class HomePage extends React.Component {
   }
 
   renderSection = (section, index) => {
-    const bulma = section.bulma.reduce((obj, tag) => ({...obj, [tag]: true}), {})
+    const bulma = section.bulma.reduce(
+      (obj, tag) => ({ ...obj, [tag]: true }),
+      {},
+    )
     let cover = null
     if (section.type === 'IMAGE') {
       const parts = section.image.split('/')
@@ -87,10 +90,7 @@ class HomePage extends React.Component {
     }
     const Comp = this.getComponent(section.type)
     return (
-      <Comp
-        key={index}
-        {...bulma}
-      >
+      <Comp key={index} {...bulma}>
         {cover}
         <Hero.Body>
           <Hero.Title>{section.title}</Hero.Title>
@@ -102,7 +102,7 @@ class HomePage extends React.Component {
       </Comp>
     )
   }
-  
+
   render() {
     const whoWeWorkedForSection = (
       <Section isLarge>
@@ -146,8 +146,8 @@ class HomePage extends React.Component {
           {CMS.sections.map(this.renderSection)}
           {whoWeWorkedForSection}
           {contactModal}
+          {this.state.notificationMessage ? notificationPopup : false}
         </div>
-        {notificationPopup}
       </DefaultLayout>
     )
   }
