@@ -2,7 +2,7 @@ import React from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './Home'
 import Services from './Services'
-import Contact from './Contact'
+import Admin from './Admin'
 
 class PrometheusRoutes extends React.Component {
   render() {
@@ -10,7 +10,8 @@ class PrometheusRoutes extends React.Component {
       <Router>
         <Switch>
           <Route path="/Services" component={Services} />
-          <Route path="/" component={Home} />
+          <Route path="/Admin" component={Admin} />
+          <Route exact path="/" component={Home} />
         </Switch>
       </Router>
     )
