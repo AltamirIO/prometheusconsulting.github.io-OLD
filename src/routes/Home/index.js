@@ -15,6 +15,7 @@ import { ModalCardFooter } from 'bloomer/lib/components/Modal/Card/ModalCardFoot
 import { ModalCardHeader } from 'bloomer/lib/components/Modal/Card/ModalCardHeader'
 import { ModalCardTitle } from 'bloomer/lib/components/Modal/Card/ModalCardTitle'
 import { Notification } from 'bloomer/lib/elements/Notification'
+import CMS from "../../assets/cms/home.json"
 import './Home.css'
 
 class HomePage extends React.Component {
@@ -30,6 +31,7 @@ class HomePage extends React.Component {
     }
     this.notificationTimeout = null
   }
+
   openModal = () => {
     this.setState({ isModalOpen: true })
   }
@@ -64,37 +66,44 @@ class HomePage extends React.Component {
   handleInput = ({ name, value }) => {
     this.setState({ [name]: value })
   }
+
+  getComponent = (type) => {
+    switch(type) {
+      case 'IMAGE':
+        return Hero.Image
+      case 'DEFAULT':
+      default:
+        return Hero
+    }
+  }
+
+  renderSection = (section, index) => {
+    const bulma = section.bulma.reduce((obj, tag) => ({...obj, [tag]: true}), {})
+    let cover = null
+    if (section.type === 'IMAGE') {
+      const parts = section.image.split('/')
+      bulma.image = require(`../../assets/images/${parts[parts.length - 1]}`)
+      cover = <Hero.Cover />
+    }
+    const Comp = this.getComponent(section.type)
+    return (
+      <Comp
+        key={index}
+        {...bulma}
+      >
+        {cover}
+        <Hero.Body>
+          <Hero.Title>{section.title}</Hero.Title>
+          <Hero.Subtitle>{section.subtitle}</Hero.Subtitle>
+          <Hero.CallToAction isRounded onClick={this.openModal}>
+            {section.cta}
+          </Hero.CallToAction>
+        </Hero.Body>
+      </Comp>
+    )
+  }
+  
   render() {
-    const qualityCodeHero = (
-      <Hero.Image image={CodeHero} isSuccess isBold isLarge isFullheight>
-        <Hero.Cover />
-        <Hero.Body>
-          <Hero.Title>Quality Code. On Time, Every Time.</Hero.Title>
-          <Hero.Subtitle>
-            <p>
-              Prometheus Software Consulting can take care the hassle out of
-              large tech projects,<br />so your business can get back to doing
-              what it does best.
-            </p>
-          </Hero.Subtitle>
-          <Hero.CallToAction isRounded onClick={this.openModal}>
-            Ask us how
-          </Hero.CallToAction>
-        </Hero.Body>
-      </Hero.Image>
-    )
-    const callToActionHero = (
-      <Hero.Image image={AppWireframe} isBold isDark isFullheight>
-        <Hero.Cover />
-        <Hero.Body>
-          <Hero.Title>We can make your idea come to life.</Hero.Title>
-          <Hero.Subtitle>Let's talk about your project</Hero.Subtitle>
-          <Hero.CallToAction isRounded onClick={this.openModal}>
-            Contact Us
-          </Hero.CallToAction>
-        </Hero.Body>
-      </Hero.Image>
-    )
     const whoWeWorkedForSection = (
       <Section isLarge>
         <Section.Title>Where our partners have worked</Section.Title>
@@ -134,12 +143,11 @@ class HomePage extends React.Component {
     return (
       <DefaultLayout location={this.props.location}>
         <div className="Home">
-          {callToActionHero}
-          {qualityCodeHero}
+          {CMS.sections.map(this.renderSection)}
           {whoWeWorkedForSection}
           {contactModal}
-          {this.state.notificationMessage ? notificationPopup : false}
         </div>
+        {notificationPopup}
       </DefaultLayout>
     )
   }
