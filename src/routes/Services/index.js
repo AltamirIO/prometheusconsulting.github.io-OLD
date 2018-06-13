@@ -1,11 +1,10 @@
-import React from "react";
-import { DefaultLayout } from "../../layouts";
-import "./Services.css";
-import { Section, Content, Title } from "prometheusui";
+import React from 'react'
+import { Content, Section, Title } from 'prometheusui'
+import { DefaultLayout } from '../../layouts'
+import './Services.css'
 
 class Services extends React.Component {
   render() {
-    console.log(this.props.locationw);
     return (
       <DefaultLayout location={this.props.location}>
         <Section>
@@ -64,8 +63,8 @@ class Services extends React.Component {
           </Content>
         </Section>
       </DefaultLayout>
-    );
+    )
   }
 }
 
-export default Services;
+export default Services

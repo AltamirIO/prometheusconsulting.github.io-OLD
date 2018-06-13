@@ -1,84 +1,109 @@
-import React from "react";
-import propTypes from "prop-types";
-import "./defaultLayout.css";
-import { Navbar, Footer, Button, Level } from "prometheusui";
-import PrometheusLogo from "../../prometheus-white.png";
-import { PhoneIcon } from "../../assets/icons";
+import PrometheusLogo from '../../prometheus-white.png'
+import propTypes from 'prop-types'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Button } from 'bloomer/lib/elements/Button'
+import { Footer } from 'bloomer/lib/layout/Footer'
+import { Level } from 'bloomer/lib/components/Level/Level'
+import { LevelLeft } from 'bloomer/lib/components/Level/LevelLeft'
+import { LevelRight } from 'bloomer/lib/components/Level/LevelRight'
+import { Navbar } from 'bloomer/lib/components/Navbar/Navbar'
+import { NavbarBrand } from 'bloomer/lib/components/Navbar/NavbarBrand'
+import { NavbarBurger } from 'bloomer/lib/components/Navbar/NavbarBurger'
+import { NavbarEnd } from 'bloomer/lib/components/Navbar/NavbarEnd'
+import { NavbarItem } from 'bloomer/lib/components/Navbar/NavbarItem'
+import { NavbarLink } from 'bloomer/lib/components/Navbar/NavbarLink'
+import { NavbarMenu } from 'bloomer/lib/components/Navbar/NavbarMenu'
+import { PhoneIcon } from '../../assets/icons'
+import './defaultLayout.css'
 
-export default function DefaultLayout({ children, location }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "97vh"
-      }}
-    >
-      <Navbar isFixedTop isTransparent isBlack>
-        <Navbar.Brand>
-          <Navbar.Link to="/">
-            <img src={PrometheusLogo} alt="Prometheus Software Consulting" />
-          </Navbar.Link>
-        </Navbar.Brand>
-        <Navbar.Menu isActive>
-          <Navbar.End>
-            <Navbar.Link to="/">Home</Navbar.Link>
-            <Navbar.Link
-              to="/Services"
-              isActive={location.pathname.includes("Services")}
-            >
-              Our Services
-            </Navbar.Link>
-            {/* <Navbar.Link to="/Contact">Get In Touch</Navbar.Link> */}
-            <Navbar.Item>
-              <Button.ExternalLink
-                href="tel:+18019970739"
-                isRounded
-                isInverted
-                isOutlined
-                isBlack
-              >
-                <PhoneIcon size={"1.3rem"} />&nbsp;&nbsp;(801) 997-0739
-              </Button.ExternalLink>
-            </Navbar.Item>
-          </Navbar.End>
-        </Navbar.Menu>
-      </Navbar>
-      <div style={{ flex: 1 }}>{children}</div>
-      <Footer
+export default class DefaultLayout extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isMenuExpanded: false
+    }
+  }
+  handleToggleMenu = () => {
+    this.setState(prevState => {
+      prevState.isMenuExpanded = !prevState.isMenuExpanded
+      return prevState
+    })
+  }
+  render() {
+    const { location, children } = this.props
+    return (
+      <div
         style={{
-          backgroundColor: "#363636",
-          color: "white",
-          justifySelf: "flex-end"
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "97vh"
         }}
       >
-        <Level>
-          <Level.Left
-            style={{ flexDirection: "column", alignItems: "flex-start" }}
-          >
-            <div>
-              <a
-                style={{ color: "white" }}
-                href="mailto:info@prometheusconsulting.io"
+        <Navbar className="is-black is-fixed-top is-transparent">
+          <NavbarBrand>
+            <NavbarLink to="/">
+              <img width="200px" src={PrometheusLogo} alt="Prometheus Software Consulting" />
+            </NavbarLink>
+            <NavbarBurger isActive={this.state.isMenuExpanded} onClick={this.handleToggleMenu}/>
+          </NavbarBrand>
+          <NavbarMenu isActive={this.state.isMenuExpanded}>
+            <NavbarEnd>
+              <NavbarItem to="/"><Link style={{color: 'white'}} to="/">Home</Link></NavbarItem>
+              <NavbarItem
+                to="/Services"
+                isActive={location.pathname.includes("Services")}
               >
-                info@prometheusconsulting.io
-              </a>
-            </div>
-            <div>
-              <a style={{ color: "white" }} href="tel:+18019970739">
-                (801) 997-0739
-              </a>
-            </div>
-            <div>A Proud Utah Business</div>
-          </Level.Left>
-          <Level.Right>
-            &copy; {new Date().getFullYear()} Prometheus Software Consulting,
-            LLC
-          </Level.Right>
-        </Level>
-      </Footer>
-    </div>
-  );
+                <Link style={{color: 'white'}} to="/Services">Our Services</Link>
+              </NavbarItem>
+              <NavbarItem>
+                <Button
+                  href="tel:18019970739"
+                  className={`is-rounded is-inverted is-outlined ${this.state.isMenuExpanded ? '' : 'is-black'}`}
+                >
+                  <PhoneIcon size={"1.3rem"} />&nbsp;&nbsp;(801) 997-0739
+                </Button>
+              </NavbarItem>
+            </NavbarEnd>
+          </NavbarMenu>
+        </Navbar>
+        <div style={{ flex: 1 }}>{children}</div>
+        <Footer
+          style={{
+            backgroundColor: "#363636",
+            color: "white",
+            justifySelf: "flex-end"
+          }}
+        >
+          <Level>
+            <LevelLeft
+              style={{ flexDirection: "column", alignItems: "flex-start" }}
+            >
+              <div>
+                <a
+                  style={{ color: "white" }}
+                  href="mailto:info@prometheusconsulting.io"
+                >
+                  info@prometheusconsulting.io
+                </a>
+              </div>
+              <div>
+                <a style={{ color: "white" }} href="tel:18019970739">
+                  (801) 997-0739
+                </a>
+              </div>
+              <div>A Proud Utah Business</div>
+            </LevelLeft>
+            <LevelRight>
+              &copy; {new Date().getFullYear()} Prometheus Software Consulting,
+              LLC
+            </LevelRight>
+          </Level>
+        </Footer>
+      </div>
+    );
+
+  }
 }
 
 DefaultLayout.propTypes = {
