@@ -1,7 +1,7 @@
 import PrometheusLogo from '../../prometheus-white.png'
 import propTypes from 'prop-types'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Button } from 'bloomer/lib/elements/Button'
 import { Footer } from 'bloomer/lib/layout/Footer'
 import { Level } from 'bloomer/lib/components/Level/Level'
@@ -49,13 +49,13 @@ export default class DefaultLayout extends React.Component {
           </NavbarBrand>
           <NavbarMenu isActive={this.state.isMenuExpanded}>
             <NavbarEnd>
-              <NavbarItem to="/"><Link style={{color: 'white'}} to="/">Home</Link></NavbarItem>
-              <NavbarItem
+              <NavbarLink to="/"><NavLink style={{textDecoration: 'none', color: 'inherit' }} to="/">Home</NavLink></NavbarLink>
+              <NavbarLink
                 to="/Services"
                 isActive={location.pathname.includes("Services")}
               >
-                <Link style={{color: 'white'}} to="/Services">Our Services</Link>
-              </NavbarItem>
+                <NavLink style={{textDecoration: 'none', color: 'inherit' }} to="/Services">Our Services</NavLink>
+              </NavbarLink>
               <NavbarItem>
                 <Button
                   href="tel:18019970739"
